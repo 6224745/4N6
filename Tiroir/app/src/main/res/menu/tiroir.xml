@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btnmainact"
+        android:title="Main Activity" />
+    <item
+        android:id="@+id/btnact2"
+        android:title="Activity 2" />
+    <item
+        android:id="@+id/btnact3"
+        android:title="Activity 3" />
+</menu>
