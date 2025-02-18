@@ -1,7 +1,6 @@
 package org.ballestero
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.ballestero.databinding.ActivityMainBinding
 import retrofit2.Call
@@ -14,26 +13,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding.getRoot())
 
-        binding.buttonDouble.setOnClickListener {
+        // appeler un service de liste et afficher dans le textview
+        binding.btn.setOnClickListener({
             val service: Service = RetrofitUtil.get()
-            val number: String = binding.editTextNumber.text.toString()
-            val call: Call<String> = service.getDouble(number)
+            val nom: String = binding.et.text.toString()
+            val call: Call<String> = service.listReposString(nom)
             call.enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
+                        // http 200 http tout s'est bien passé
                         val resultat = response.body()
-                        Toast.makeText(this@MainActivity, "Doubled: $resultat", Toast.LENGTH_SHORT).show()
+                        binding.tv.text = resultat
                     } else {
-                        Toast.makeText(this@MainActivity, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        // cas d'erreur http 400 404 etc.
+                        binding.tv.text = "REPONSE ERREUR : " + response.code()
                     }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Toast.makeText(this@MainActivity, "Failure: ${t.message}", Toast.LENGTH_SHORT).show()
+                    // erreur accès réseau ou alors GSON
+                    binding.tv.text = "PAS DE REPONSE : " + t.message
                 }
             })
-        }
+        })
     }
 }
