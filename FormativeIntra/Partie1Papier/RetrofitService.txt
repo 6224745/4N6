@@ -1,0 +1,2 @@
+ @GET("fibo/number")
+    fun listReposString(@Path("number") number: Int): Call<List<Int>>

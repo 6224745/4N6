@@ -1,0 +1,10 @@
+Trace:
+
+var a = 100				a:100						main
+a += double(a) + (3 * triple(8))	a:100 appelle double avec 100->x		main				
+val z = x * 2				x:100 z:200					double main
+return z              			x:100 z:200 return 200				double main
+a += double(a) + (3 * triple(8))	a:100 appelle triple avec 8->a			main
+return a * 3				a:8 return 24					triple main
+a += double(100) + (3 * triple(8))	a:372						main
+println(a)				a:372 affiche 372				main
