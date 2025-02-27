@@ -25,29 +25,22 @@ class MainActivity : AppCompatActivity() {
         binding.btnEnvoi.setOnClickListener({
             val service: Service = RetrofitUtil.get()
             val num: String = binding.num.text.toString()
-            val call: Call<String> = service.listReposString(num)
-            call.enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+            val call: Call<List<Repre>> = service.listReposString(num)
+            call.enqueue(object : Callback<List<Repre>> {
+                override fun onResponse(call: Call<List<Repre>>, response: Response<List<Repre>>) {
                     if (response.isSuccessful) {
                         // http 200 http tout s'est bien passé
                         val resultat = response.body()
-                        var list: List<String>
                         if (resultat != null) {
-                            for(i in resultat) {
-                                list = resultat.split(",")
-                                var resultat = ""
-                                for (i in 0..list.size - 1) {
-                                    resultat += list[i] + "\n"
-                                }
-                                binding.Text.text = resultat
-                            }
+                            val formattedText = resultat.joinToString("\n") { "${it.description}: ${it.representation}" }
+                            binding.Text.text = formattedText
                         }
                     } else {
                         // cas d'erreur http 400 404 etc.
                         binding.Text.text = "REPONSE ERREUR : " + response.code()
                     }
                 }
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<List<Repre>>, t: Throwable) {
                     // erreur accès réseau ou alors GSON
                     binding.Text.text = "PAS DE REPONSE : " + t.message
                 }

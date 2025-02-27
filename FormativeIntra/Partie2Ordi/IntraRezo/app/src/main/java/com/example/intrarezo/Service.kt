@@ -6,5 +6,5 @@ import retrofit2.http.Path
 
 interface Service {
     @GET("exam/representations/{nombre}")
-    fun listReposString(@Path("nombre") nombre: String): Call<String>
+    fun listReposString(@Path("nombre") nombre: String): Call<List<Repre>>
 }
