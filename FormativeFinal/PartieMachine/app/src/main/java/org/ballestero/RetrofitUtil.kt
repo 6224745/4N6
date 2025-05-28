@@ -14,7 +14,7 @@ object RetrofitUtil {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(CustomGson.getIt()))
                 .client(client())
-                .baseUrl("https://fourn6-mobile-prof.onrender.com/")
+                .baseUrl("http://localhost:8080/")
                 .build()
             instance = retrofit.create<Service?>(Service::class.java)
             return instance!!

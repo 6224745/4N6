@@ -12,7 +12,7 @@
         android:orientation="vertical">
         <EditText
             android:id="@+id/Text"
-            android:hint="N'importe quoia plus que 3 lettres"
+            android:hint="N'importe quoi a plus que 3 lettres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text">
@@ -24,12 +24,13 @@
             android:layout_gravity="center"
             android:text="Send">
         </Button>
-        <TextView
-            android:id="@+id/Text_Reponse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-        </TextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_mon_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="1"
+            tools:listitem="@layout/mon_item" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
